@@ -27,5 +27,13 @@ jobs:
           ./arduino-cli sketch new "${{ runner.temp }}/Foo"
 
       - run: |
+          export GOPATH=$HOME/go
+          go install go.bug.st/cmdlineprinter@master
+          cp $GOPATH/bin/cmdlineprinter $HOME/.arduino15/packages/teensy/tools/teensy-tools/1.59.0/
+
+      - run: |
+          cp platform.txt.patch $HOME/.arduino15/packages/teensy/hardware/avr/1.59.0/platform.txt
+
+      - run: |
           ./arduino-cli compile --fqbn teensy:avr:teensy36 "${{ runner.temp }}/Foo" -v
 
