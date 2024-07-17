@@ -1,0 +1,31 @@
+on:
+  push:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: arduino/arduino-cli
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.21
+
+      - uses: arduino/setup-task@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          version: 3.x
+
+      - run: |
+          task build
+
+      - run: |
+          ./arduino-cli core install --additional-urls https://www.pjrc.com/teensy/package_teensy_index.json teensy:avr
+          ./arduino-cli sketch new "${{ runner.temp }}/Foo"
+
+      - run: |
+          ./arduino-cli compile --fqbn teensy:avr:teensy36 "${{ runner.temp }}/Foo"
+
