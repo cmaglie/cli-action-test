@@ -8,6 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: |
+          cp ${GITHUB_WORKSPACE}/platform.txt.patch $HOME
+
       - uses: actions/checkout@v4
         with:
           repository: arduino/arduino-cli
@@ -34,7 +37,7 @@ jobs:
           cp $GOPATH/bin/cmdlineprinter $HOME/.arduino15/packages/teensy/tools/teensy-tools/1.59.0/
 
       - run: |
-          cp ${GITHUB_WORKSPACE}/platform.txt.patch $HOME/.arduino15/packages/teensy/hardware/avr/1.59.0/platform.txt
+          cp $HOME/platform.txt.patch $HOME/.arduino15/packages/teensy/hardware/avr/1.59.0/platform.txt
 
       - run: |
           ./arduino-cli compile --fqbn teensy:avr:teensy36 "${{ runner.temp }}/Foo" -v
