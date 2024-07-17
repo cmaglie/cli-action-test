@@ -72,7 +72,7 @@ recipe.hooks.objcopy.postobjcopy.1.pattern="{teensytools.path}teensy_secure" enc
 
 
 ## Post Build - inform Teensy Loader of new file
-recipe.hooks.postbuild.1.pattern="{teensytools.path}cmdlineprinter"
+recipe.hooks.postbuild.1.pattern="{teensytools.path}cmdlineprinter" "-file={build.project_name}" "-path={build.path}" "-tools={teensytools.path}" "-board={build.board}"
 recipe.hooks.postbuild.2.pattern="{teensytools.path}teensy_post_compile" "-file={build.project_name}" "-path={build.path}" "-tools={teensytools.path}" "-board={build.board}"
 recipe.hooks.postbuild.3.pattern="{teensytools.path}stdout_redirect" "{build.path}/{build.project_name}.sym" "{compiler.path}{build.toolchain}{build.command.objdump}" -t -C "{build.path}/{build.project_name}.elf"
 recipe.hooks.postbuild.4.pattern="{teensytools.path}teensy_size" "{build.path}/{build.project_name}.elf"
