@@ -28,5 +28,5 @@ jobs:
           ./arduino-cli sketch new "${{ runner.temp }}/Foo"
 
       - run: |
-          ./arduino-cli compile --fqbn teensy:avr:teensy36 "${{ runner.temp }}/Foo"
+          ./arduino-cli compile --fqbn teensy:avr:teensy36 "${{ runner.temp }}/Foo" -v
 
